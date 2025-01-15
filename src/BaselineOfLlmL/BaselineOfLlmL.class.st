@@ -8,6 +8,6 @@ Class {
 BaselineOfLlmL >> baseline: spec [
 	<baseline>
 		^ spec for: #common do: [
-			spec package: 'Gt4Llm'
+			spec package: 'LlmL'
 		]
 ]
