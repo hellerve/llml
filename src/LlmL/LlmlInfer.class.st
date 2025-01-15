@@ -1,6 +1,9 @@
 Class {
 	#name : #LlmlInfer,
 	#superclass : #Object,
+	#instVars : [
+		'model'
+	],
 	#category : #'LlmL-Model'
 }
 
@@ -9,7 +12,7 @@ LlmlInfer >> evaluate: aCollection in: aLlmlEvaluator [
 	| chat |
 	chat := GtOllamaChat new
 			format: self format;
-			model: 'phi4';
+			model: self model;
 			sendMessage: 'Provide the output of the following expression: '
 					, aLlmlEvaluator callStack last source.
 	^ (chat messages first contentJson at: 'result') asNumber
@@ -20,4 +23,14 @@ LlmlInfer >> format [
 	^ {'type' -> 'object'.
 		'properties' -> {'result' -> {'type' -> 'number'} asDictionary} asDictionary.
 		'required' -> {'result'}} asDictionary
+]
+
+{ #category : #accessing }
+LlmlInfer >> model [
+	^ model
+]
+
+{ #category : #accessing }
+LlmlInfer >> model: anObject [
+	model := anObject
 ]

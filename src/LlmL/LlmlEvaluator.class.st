@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'symbols',
-		'callStack'
+		'callStack',
+		'model'
 	],
 	#category : #'LlmL-Evaluator'
 }
@@ -16,6 +17,11 @@ LlmlEvaluator >> callStack [
 { #category : #accessing }
 LlmlEvaluator >> callStack: anObject [
 	callStack := anObject
+]
+
+{ #category : #'as yet unclassified' }
+LlmlEvaluator >> defaultModel [
+	^ 'phi4'
 ]
 
 { #category : #'as yet unclassified' }
@@ -34,8 +40,19 @@ LlmlEvaluator >> initialize [
 	
 	symbols := LlmlEnv new.
 	callStack := OrderedCollection new.
+	model := self defaultModel.
 	
 	self storePrimitives
+]
+
+{ #category : #accessing }
+LlmlEvaluator >> model [
+	^ model
+]
+
+{ #category : #accessing }
+LlmlEvaluator >> model: anObject [
+	model := anObject
 ]
 
 { #category : #'as yet unclassified' }
