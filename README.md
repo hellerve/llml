@@ -1,10 +1,10 @@
 # llml
 
-A sillsy language that lets LLMs do the heavy lifting.
+A silly language that lets LLMs do the heavy lifting.
 
 You can write code yourself:
 
-```
+```st
 LlmlEvaluator new evaluate:
 	(LlmlParser parse: 
 		'(def x (fn (n) (* n 2)))
@@ -13,7 +13,7 @@ LlmlEvaluator new evaluate:
 
 Or instead let an LLM do the heavy lifting:
 
-```
+```st
 LlmlEvaluator new evaluate:
 	(LlmlParser parse: 
 		'(def factorial (infer))
