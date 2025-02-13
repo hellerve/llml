@@ -10,12 +10,13 @@ Class {
 { #category : #'as yet unclassified' }
 LlmlInfer >> evaluate: aCollection in: aLlmlEvaluator [
 	| chat |
-	chat := GtOllamaChat new
-			format: self format;
-			model: self model;
+	chat := GtLlmChat new
+			provider: (GtOllamaProvider new
+					model: self model;
+					format: self format);
 			sendMessage: 'Provide the output of the following expression: '
 					, aLlmlEvaluator callStack last source.
-	^ (chat messages first contentJson at: 'result') asNumber
+	^ (chat messages last contentJson at: 'result') asNumber
 ]
 
 { #category : #'as yet unclassified' }
