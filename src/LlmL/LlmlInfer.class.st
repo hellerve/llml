@@ -2,20 +2,30 @@ Class {
 	#name : #LlmlInfer,
 	#superclass : #Object,
 	#instVars : [
-		'model'
+		'connection'
 	],
 	#category : #'LlmL-Model'
 }
+
+{ #category : #accessing }
+LlmlInfer >> connection [
+	^ connection
+]
+
+{ #category : #accessing }
+LlmlInfer >> connection: anObject [
+	connection := anObject
+]
 
 { #category : #'as yet unclassified' }
 LlmlInfer >> evaluate: aCollection in: aLlmlEvaluator [
 	| chat |
 	chat := GtLlmChat new
-			provider: (GtOllamaProvider new
-					model: self model;
-					format: self format);
-			sendMessage: 'Provide the output of the following expression: '
-					, aLlmlEvaluator callStack last source.
+			provider: (self connection buildProvider format: self format).
+	chat
+		sendMessage: 'Provide the output of the following expression: '
+				, aLlmlEvaluator callStack last source.
+	chat provider executions last wait.
 	^ (chat messages last contentJson at: 'result') asNumber
 ]
 
@@ -23,15 +33,6 @@ LlmlInfer >> evaluate: aCollection in: aLlmlEvaluator [
 LlmlInfer >> format [
 	^ {'type' -> 'object'.
 		'properties' -> {'result' -> {'type' -> 'number'} asDictionary} asDictionary.
-		'required' -> {'result'}} asDictionary
-]
-
-{ #category : #accessing }
-LlmlInfer >> model [
-	^ model
-]
-
-{ #category : #accessing }
-LlmlInfer >> model: anObject [
-	model := anObject
+		'required' -> {'result'}.
+		'additionalProperties' -> false} asDictionary
 ]

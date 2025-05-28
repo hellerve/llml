@@ -6,5 +6,5 @@ Class {
 
 { #category : #'as yet unclassified' }
 LlmlInferEvaluator >> evaluate: aCollection in: aLlmlEvaluator [
-	^ LlmlInfer new model: aLlmlEvaluator model
+	^ LlmlInfer new connection: aLlmlEvaluator connection
 ]

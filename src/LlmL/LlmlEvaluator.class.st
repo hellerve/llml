@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'symbols',
 		'callStack',
-		'model'
+		'model',
+		'connection'
 	],
 	#category : #'LlmL-Evaluator'
 }
@@ -19,9 +20,19 @@ LlmlEvaluator >> callStack: anObject [
 	callStack := anObject
 ]
 
+{ #category : #accessing }
+LlmlEvaluator >> connection [
+	^ connection
+]
+
+{ #category : #accessing }
+LlmlEvaluator >> connection: anObject [
+	connection := anObject
+]
+
 { #category : #'as yet unclassified' }
-LlmlEvaluator >> defaultModel [
-	^ 'phi4'
+LlmlEvaluator >> defaultConnection [
+	^ GtLlmConnectionRegistry instance defaultConnection
 ]
 
 { #category : #'as yet unclassified' }
@@ -40,19 +51,9 @@ LlmlEvaluator >> initialize [
 	
 	symbols := LlmlEnv new.
 	callStack := OrderedCollection new.
-	model := self defaultModel.
+	connection := self defaultConnection.
 	
 	self storePrimitives
-]
-
-{ #category : #accessing }
-LlmlEvaluator >> model [
-	^ model
-]
-
-{ #category : #accessing }
-LlmlEvaluator >> model: anObject [
-	model := anObject
 ]
 
 { #category : #'as yet unclassified' }
