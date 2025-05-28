@@ -20,8 +20,18 @@ LlmlEvaluator new evaluate:
 		 (factorial 6)') "=> 720"
 ```
 
-The latter will use Ollama with the Phi4 model. It’s hardcoded, and I didn’t bother making it customizable, because
-this is a funny but terrible idea.
+The inference uses your default LLM connection as configured inside Glamorous Toolkit. You can also select one by hand:
+
+```
+LlmlEvaluator new
+	connection: (GtLlmConnection new
+			provider: GtOllamaProvider;
+			model: 'llama3.2');
+	evaluate: (LlmlParser
+			parse: '(def factorial (infer))
+		 (factorial 4)')
+```
+
 ## Installation
 
 ```st
